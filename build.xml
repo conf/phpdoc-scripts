@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PHP Doc" basedir="." default="build">
+
+	<property file="build.properties"/>
+
+	<!-- loading local properties file -->
+	<available file="${local.properties}" property="local.exists" value="1"/>
+	<if>
+		<equals arg1="${local.exists}" arg2="1"/>
+		<then>
+			<property file="${local.properties}" override="true"/>
+		</then>
+	</if>
+
+	<target name="up">
+		<echo msg="Updating repository"/>
+		<exec command="${scripts.svn_up}" dir="." logoutput="true" checkreturn="true" />
+	</target>
+
+	<target name="revcheck">
+		<echo msg="Generating revcheck.html"/>
+		<exec command="${scripts.revcheck} --show-uptodate > ${files.revcheck_output}" dir="." logoutput="true" checkreturn="true" />
+	</target>
+
+	<target name="reviewedcheck">
+		<echo msg="Generating reviewedcheck.html"/>
+		<exec command="${scripts.reviewedcheck} > ${files.reviewedcheck_output}" dir="." logoutput="true" checkreturn="true" />
+	</target>
+
+ <target name="markup_check">
+  <echo msg="Checking markup"/>
+  <exec command="${scripts.markup_check}" dir="." logoutput="true" checkreturn="true" />  
+ </target>
+
+ <target name="build" depends="markup_check,revcheck,reviewedcheck">
+  <echo msg="Building manual"/>
+  <exec command="${scripts.build}" dir="." passthru="true" logoutput="true" checkreturn="true" />
+ </target>
+
+ <target name="generate" depends="build">
+  <echo msg="Generating local mirror"/>
+  <exec command="${scripts.generate}" dir="." passthru="true" logoutput="true" checkreturn="true" />
+ </target>
+
+</project>
