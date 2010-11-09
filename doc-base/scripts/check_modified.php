@@ -57,7 +57,7 @@ exec("svn st $escaped_dir", $svn_status);
 $changed_files = array_values(array_filter(array_map('get_modified', $svn_status)));
 
 if (!$changed_files) {
-    echo 'NOTHING TO CHECK, EXITING.';
+    echo 'NOTHING TO CHECK, EXITING.', PHP_EOL;
     exit(0);
 }
 
