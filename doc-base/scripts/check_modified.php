@@ -47,7 +47,7 @@ function get_modified($item) {
         return false;
     }
 
-    return trim(substr($item, 1));
+    return trim(substr($item, 7));
 }
 
 
