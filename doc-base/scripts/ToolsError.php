@@ -1208,7 +1208,7 @@ class ToolsError
 
         foreach ($tags as $tag => $label) {
 
-            $reg = '%<' . $tag . '( [^>]*?)?>.*?</' . $tag . '>%su';
+            $reg = '%<' . $tag . '(\s+[^>]*?)?>.*?</' . $tag . '>%su';
 
             $nb_en = 0;
             if (preg_match_all($reg, $this->en_content, $en_match)) {
