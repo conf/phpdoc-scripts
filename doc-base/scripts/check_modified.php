@@ -47,7 +47,8 @@ function get_modified($item) {
         return false;
     }
 
-    return trim(substr($item, 7));
+    $path = trim(substr($item, 7));
+    return is_file($path) ? $path : false;
 }
 
 
