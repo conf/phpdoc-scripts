@@ -36,6 +36,9 @@ $file_iterator = new RecursiveIteratorIterator(
 foreach($file_iterator as $key => $item) {
 	$destination = str_replace($current_dir, $install_dir, $item->getRealpath());
 	echo "Creating symlink: ", $item->getRealpath(), " => " , $destination, PHP_EOL;
+	if (is_link($destination)) {
+		unlink($destination);
+	}
 	symlink($item->getRealpath(), $destination);
 }
 
